@@ -38,6 +38,11 @@ public class SubwayService {
         return (int) dijkstraShortestPath.getPathWeight(departureStation, arrivalStation);
     }
 
+    public int calculateShortestTime(String departureStation, String arrivalStation) {
+        DijkstraShortestPath dijkstraShortestPath = getDijkstraShortestPathByDistanceByTime();
+        return (int) dijkstraShortestPath.getPathWeight(departureStation, arrivalStation);
+    }
+
     private DijkstraShortestPath getDijkstraShortestPathByDistance() {
         WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
         for (Station station : StationRepository.stations()) {
