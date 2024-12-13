@@ -19,32 +19,57 @@ public class SubwayController {
         subwayService.preSetting();
         while (true) {
             String mainOption = returnMainOption();
-            if (mainOption.equals("1")) {
-                String standardOption = returnStandardOption();
-                if (standardOption.equals("1")) {
-                    String departureStation = returnDepartureStation();
-                    String arrivalStation = returnArrivalStation(departureStation);
-                    int distance = subwayService.calculateShortestDistance(departureStation, arrivalStation);
-                    List<String> stations = subwayService.calculatePathByDistance(departureStation, arrivalStation);
-                    int time = subwayService.calculateTime(stations);
-                    OutputView.printResult(distance, time, stations);
-                }
-                if (standardOption.equals("2")) {
-                    String departureStation = returnDepartureStation();
-                    String arrivalStation = returnArrivalStation(departureStation);
-                    int time = subwayService.calculateShortestTime(departureStation, arrivalStation);
-                    List<String> stations = subwayService.calculatePathByTime(departureStation, arrivalStation);
-                    int distance = subwayService.calculateDistance(stations);
-                    OutputView.printResult(distance, time, stations);
-                }
-                if (standardOption.equals("B")) {
-                    continue;
-                }
+            if (processMainOne(mainOption)) {
+                continue;
             }
-            if (mainOption.equals("Q")) {
+            if (processMainTwo(mainOption)) {
                 break;
             }
         }
+    }
+
+    private boolean processMainOne(String mainOption) {
+        if (mainOption.equals("1")) {
+            return processStandard();
+        }
+        return false;
+    }
+
+    private static boolean processMainTwo(String mainOption) {
+        return mainOption.equals("Q");
+    }
+
+    private boolean processStandard() {
+        String standardOption = returnStandardOption();
+        processStandardOne(standardOption);
+        processStandardTwo(standardOption);
+        return processStandardQ(standardOption);
+    }
+
+    private void processStandardOne(String standardOption) {
+        if (standardOption.equals("1")) {
+            String departureStation = returnDepartureStation();
+            String arrivalStation = returnArrivalStation(departureStation);
+            int distance = subwayService.calculateShortestDistance(departureStation, arrivalStation);
+            List<String> stations = subwayService.calculatePathByDistance(departureStation, arrivalStation);
+            int time = subwayService.calculateTime(stations);
+            OutputView.printResult(distance, time, stations);
+        }
+    }
+
+    private void processStandardTwo(String standardOption) {
+        if (standardOption.equals("2")) {
+            String departureStation = returnDepartureStation();
+            String arrivalStation = returnArrivalStation(departureStation);
+            int time = subwayService.calculateShortestTime(departureStation, arrivalStation);
+            List<String> stations = subwayService.calculatePathByTime(departureStation, arrivalStation);
+            int distance = subwayService.calculateDistance(stations);
+            OutputView.printResult(distance, time, stations);
+        }
+    }
+
+    private static boolean processStandardQ(String standardOption) {
+        return standardOption.equals("B");
     }
 
     public String returnMainOption() {
