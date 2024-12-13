@@ -33,6 +33,11 @@ public class SubwayService {
         return dijkstraShortestPath.getPath(departureStation, arrivalStation).getVertexList();
     }
 
+    public int calculateShortestDistance(String departureStation, String arrivalStation) {
+        DijkstraShortestPath dijkstraShortestPath = getDijkstraShortestPathByDistance();
+        return (int) dijkstraShortestPath.getPathWeight(departureStation, arrivalStation);
+    }
+
     private DijkstraShortestPath getDijkstraShortestPathByDistance() {
         WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
         for (Station station : StationRepository.stations()) {
