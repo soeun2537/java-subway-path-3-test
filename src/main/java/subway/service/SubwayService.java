@@ -43,6 +43,10 @@ public class SubwayService {
         return (int) dijkstraShortestPath.getPathWeight(departureStation, arrivalStation);
     }
 
+    public int calculateDistance(List<String> paths) {
+        return LineInformation.sumDistance(paths);
+    }
+
     private DijkstraShortestPath getDijkstraShortestPathByDistance() {
         WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
         for (Station station : StationRepository.stations()) {
