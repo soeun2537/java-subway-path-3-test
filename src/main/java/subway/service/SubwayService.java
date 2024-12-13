@@ -47,6 +47,10 @@ public class SubwayService {
         return LineInformation.sumDistance(paths);
     }
 
+    public int calculateTime(List<String> paths) {
+        return LineInformation.sumTime(paths);
+    }
+
     private DijkstraShortestPath getDijkstraShortestPathByDistance() {
         WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
         for (Station station : StationRepository.stations()) {
