@@ -35,4 +35,17 @@ public class SubwayService {
         }
         return new DijkstraShortestPath(graph);
     }
+
+    private DijkstraShortestPath getDijkstraShortestPathByDistanceByTime() {
+        WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
+        for (Station station : StationRepository.stations()) {
+            graph.addVertex(station.getName());
+        }
+        for (String line : LineInformation.getLineInformation()) {
+            List<String> stations = Parser.separateBySeparator(line, "_");
+            graph.setEdgeWeight(graph.addEdge(stations.get(0), stations.get(1)),
+                    LineInformation.findTimeByName(line));
+        }
+        return new DijkstraShortestPath(graph);
+    }
 }
