@@ -1,5 +1,7 @@
 package subway.service;
 
+import static subway.constant.InputConstant.*;
+
 import java.util.List;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -57,7 +59,7 @@ public class SubwayService {
             graph.addVertex(station.getName());
         }
         for (String line : LineInformation.getLineInformation()) {
-            List<String> stations = Parser.separateBySeparator(line, "_");
+            List<String> stations = Parser.separateBySeparator(line, LINE_SEPARATOR.getContent());
             graph.setEdgeWeight(graph.addEdge(stations.get(0), stations.get(1)),
                     LineInformation.findDistanceByName(line));
         }
@@ -70,7 +72,7 @@ public class SubwayService {
             graph.addVertex(station.getName());
         }
         for (String line : LineInformation.getLineInformation()) {
-            List<String> stations = Parser.separateBySeparator(line, "_");
+            List<String> stations = Parser.separateBySeparator(line, LINE_SEPARATOR.getContent());
             graph.setEdgeWeight(graph.addEdge(stations.get(0), stations.get(1)),
                     LineInformation.findTimeByName(line));
         }
