@@ -1,5 +1,7 @@
 package subway.domain;
 
+import static subway.constant.InputConstant.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +61,6 @@ public enum LineInformation {
     public static int sumTime(List<String> paths) {
         int sum = 0;
         for (int i = 0; i < paths.size() - 1; i++) {
-            System.out.println("i = " + i);
             LineInformation lineInformation = findLineInformation(paths.get(i), paths.get(i + 1));
             sum += lineInformation.time;
         }
@@ -68,7 +69,7 @@ public enum LineInformation {
 
     public static LineInformation findLineInformation(String departureStation, String arrivalStation) {
         for (LineInformation value : values()) {
-            if (value.name().equals(departureStation + "_" + arrivalStation)) {
+            if (value.name().equals(departureStation + LINE_SEPARATOR.getContent() + arrivalStation)) {
                 return value;
             }
         }
