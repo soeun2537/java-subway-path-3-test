@@ -22,4 +22,17 @@ public class SubwayService {
             LineRepository.addLine(new Line(line));
         }
     }
+
+    private DijkstraShortestPath getDijkstraShortestPathByDistance() {
+        WeightedMultigraph<String, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
+        for (Station station : StationRepository.stations()) {
+            graph.addVertex(station.getName());
+        }
+        for (String line : LineInformation.getLineInformation()) {
+            List<String> stations = Parser.separateBySeparator(line, "_");
+            graph.setEdgeWeight(graph.addEdge(stations.get(0), stations.get(1)),
+                    LineInformation.findDistanceByName(line));
+        }
+        return new DijkstraShortestPath(graph);
+    }
 }
